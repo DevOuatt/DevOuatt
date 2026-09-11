@@ -1,0 +1,27 @@
+name: Spring Boot CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cloner le projet
+        uses: actions/checkout@v4
+
+      - name: Installer Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Donner les permissions Maven Wrapper
+        run: chmod +x mvnw
+
+      - name: Compiler le projet
+        run: ./mvnw clean package
